@@ -1,0 +1,26 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+platforms:
+  - name: elastic
+    interfaces:
+      - auto_config: true
+        network_name: private_network
+        type: dhcp
+      - network_name: forwarded_port
+        guest: 9200
+        host: 9200
+    box: bento/centos-7
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
+scenario:
+  test_sequence:
+    - destroy
+    - create
+    - converge
+    - verify
+    - destroy
